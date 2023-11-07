@@ -1,0 +1,24 @@
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Games</th>
+    <th>W</th>
+    <th>L</th>
+    <th>D</th>
+    <th>Goal Difference</th>
+    <th>Points</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let team of teamStandings$! | async">
+    <tr>
+      <td>{{team.name}}</td>
+      <td>{{team.games}}</td>
+      <td>{{team.wins}}</td>
+      <td>{{team.losses}}</td>
+      <td>{{team.draws}}</td>
+      <td>{{team.goalDifference}}</td>
+      <td>{{team.points}}</td>
+    </tr>
+  </tbody>
+</table>
