@@ -8,14 +8,13 @@ import { TeamStanding } from "../team-standing";
   templateUrl: './team-standings.component.html',
   styleUrls: ['./team-standings.component.css']
 })
-export class TeamStandingsComponent implements OnInit{
+export class TeamStandingsComponent {
   @Input()
-  leagueId: string = '';
-  teamStandings$!: Observable<TeamStanding[]>;
+  country: string = '';
   constructor(private footballService: FootballService) {
   }
 
-  ngOnInit(): void {
-    this.teamStandings$ = this.footballService.getTeamStandings(Number(this.leagueId));
+  getTeamStanding(): Observable<TeamStanding[]> {
+    return this.footballService.getTeamStandings(this.country);
   }
 }

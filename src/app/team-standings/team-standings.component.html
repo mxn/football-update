@@ -10,7 +10,7 @@
     <th>Points</th>
   </tr>
   </thead>
-  <tbody *ngFor="let team of teamStandings$! | async">
+  <tbody *ngFor="let team of getTeamStanding() | async">
     <tr>
       <td>{{team.name}}</td>
       <td>{{team.games}}</td>

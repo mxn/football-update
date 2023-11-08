@@ -10,25 +10,29 @@ import { TeamStandingsComponent } from "./team-standings/team-standings.componen
 export class FootballService {
   private apiKey: string = '8f6f7b3d8164aa2f52afdf308e691f95';
   private apiEndPoint: string = 'https://v3.football.api-sports.io/'
-  private countryLeagueMapping;
 
-  constructor() {
-    this.countryLeagueMapping = {
-      'England': 39,
-      'Spain': 140,
-      'France': 61,
-      'Germany': 78,
-      'Italy': 135
+  getTeamStandings(country: string): Observable<TeamStanding[]> {
+    let leagueId: number = this.getLeagueId(country);
+    if ([39, 148].includes(leagueId)) {
+      return of(testTeams1);
     }
+    return of(testTeams2);
   }
-
-  getTeamStandings(leagueId: number): Observable<TeamStanding[]> {
-    return of(testTeams);
+  getLeagueId(country: string): number {
+    return countryLeagueMapping[country];
   }
 }
 
+const countryLeagueMapping: {[index: string]:any}  =
+  {
+    'england': 39,
+    'spain': 140,
+    'france': 61,
+    'germany': 78,
+    'italy': 135
+  }
 
-const testTeams: TeamStanding[] = [
+const testTeams1: TeamStanding[] = [
   {
     name: 'aha',
     logoUrl: 'hi',
@@ -42,6 +46,29 @@ const testTeams: TeamStanding[] = [
   {
     name: 'uhu',
     logoUrl: 'bye',
+    games: 15,
+    wins: 10,
+    draws: 1,
+    losses: 2,
+    goalDifference: 1,
+    points: 1,
+  }
+]
+
+const testTeams2: TeamStanding[] = [
+  {
+    name: 'FR',
+    logoUrl: 'BR',
+    games: 20,
+    wins: 10,
+    draws: 1,
+    losses: 2,
+    goalDifference: 1,
+    points: 1,
+  },
+  {
+    name: 'EN',
+    logoUrl: 'GB',
     games: 15,
     wins: 10,
     draws: 1,
