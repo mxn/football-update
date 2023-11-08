@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { TeamStanding } from "./team-standing";
 import { TeamStandingsComponent } from "./team-standings/team-standings.component";
+import { GameResult } from "./game-result";
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,19 @@ export class FootballService {
       points: teamEl.points,
     }));
   }
+
+  toGameResults(response: any): GameResult[] {
+    return response.response.map((fixtureEl: any) => (
+      {homeTeamName: fixtureEl.teams.home.name,
+        homeTeamLogoUrl: fixtureEl.teams.home.logo,
+        homeTeamGoals: fixtureEl.goals.home,
+        awayTeamName: fixtureEl.teams.away.name,
+        awayTeamLogoUrl: fixtureEl.teams.away.logo,
+        awayTeamGoals: fixtureEl.goals.away
+      }
+    ))
+  }
+
   getLeagueId(country: string): number {
     return countryLeagueMapping[country];
   }
