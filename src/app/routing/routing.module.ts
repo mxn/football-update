@@ -6,7 +6,7 @@ import { TeamStandingsComponent } from "../team-standings/team-standings.compone
 
 const routes: Routes = [
   {
-    path: 'team-standing/:country',
+    path: 'team-standings/:country',
     component: TeamStandingsComponent
   }
 ];
