@@ -1,5 +1,6 @@
 
 export interface TeamStanding {
+  id: number;
   name: string;
   logoUrl: string;
   games: number;
