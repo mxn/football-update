@@ -3,6 +3,7 @@ import { Observable, of } from "rxjs";
 import { TeamStanding } from "./team-standing";
 import { GameResult } from "./game-result";
 import { fake_standing_response, fake_standings_response_1 } from "./fake_standing_response";
+import { fake_team_response } from "./fake_team_fixture_response";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class FootballService {
   }
 
   toTeamStandings(response: any): TeamStanding[] {
-    return response.response[0].league.standings[0].map((teamEl: any)  => ({
+    return response.response[0].league.standings[0].map((teamEl: any) => ({
       id: teamEl.team.id,
       name: teamEl.team.name,
       logoUrl: teamEl.team.logo,
@@ -35,7 +36,8 @@ export class FootballService {
 
   toGameResults(response: any): GameResult[] {
     return response.response.map((fixtureEl: any) => (
-      {homeTeamName: fixtureEl.teams.home.name,
+      {
+        homeTeamName: fixtureEl.teams.home.name,
         homeTeamLogoUrl: fixtureEl.teams.home.logo,
         homeTeamGoals: fixtureEl.goals.home,
         awayTeamName: fixtureEl.teams.away.name,
@@ -51,6 +53,10 @@ export class FootballService {
 
   getTeamLogoUrl(teamId: number) {
     return `https://media.api-sports.io/football/teams/${teamId}.png`
+  }
+
+  getTeamGameResults(teamId: number): Observable<GameResult[]> {
+    return of(this.toGameResults(fake_team_response));
   }
 }
 

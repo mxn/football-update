@@ -6,17 +6,21 @@ import { CountryNavigationComponent } from './country-navigation/country-navigat
 import { TeamStandingsComponent } from './team-standings/team-standings.component';
 import { RouterOutlet } from "@angular/router";
 import { RoutingModule } from "./routing/routing.module";
+import { TeamGameResultsComponent } from './team-game-results/team-game-results.component';
+import { NgOptimizedImage } from "@angular/common";
 
 @NgModule({
   declarations: [
     AppComponent,
     CountryNavigationComponent,
-    TeamStandingsComponent
+    TeamStandingsComponent,
+    TeamGameResultsComponent
   ],
   imports: [
     BrowserModule,
     RoutingModule,
-    RouterOutlet
+    RouterOutlet,
+    NgOptimizedImage
   ],
   providers: [],
   bootstrap: [AppComponent]

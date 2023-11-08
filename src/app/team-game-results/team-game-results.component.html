@@ -1,0 +1,27 @@
+<table>
+  <tbody *ngFor="let gameResult of gameResults$ | async">
+  <tr>
+    <td>
+      <img ngSrc="{{gameResult.homeTeamLogoUrl}}}" width="25" height="25" alt="logo"/>
+    </td>
+    <td>
+      {{gameResult.homeTeamName}}
+    </td>
+    <td>
+      {{gameResult.homeTeamGoals}}
+    </td>
+    <td>
+      -
+    </td>
+    <td>
+      {{gameResult.awayTeamGoals}}
+    </td>
+    <td>
+      {{gameResult.awayTeamName}}
+    </td>
+    <td>
+      <img ngSrc="{{gameResult.awayTeamLogoUrl}}}" width="25" height="25" alt="logo"/>
+    </td>
+  </tr>
+  </tbody>
+</table>
