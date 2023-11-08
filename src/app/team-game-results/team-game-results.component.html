@@ -1,27 +1,34 @@
-<table>
-  <tbody *ngFor="let gameResult of gameResults$ | async">
-  <tr>
-    <td>
-      <img ngSrc="{{gameResult.homeTeamLogoUrl}}" width="25" height="25" alt="x"/>
-    </td>
-    <td>
-      {{gameResult.homeTeamName}}
-    </td>
-    <td>
-      {{gameResult.homeTeamGoals}}
-    </td>
-    <td>
-      -
-    </td>
-    <td>
-      {{gameResult.awayTeamGoals}}
-    </td>
-    <td>
-      {{gameResult.awayTeamName}}
-    </td>
-    <td>
-      <img ngSrc="{{gameResult.awayTeamLogoUrl}}" width="25" height="25" alt="x"/>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div>
+  <div>
+    <table class="responsive-table striped">
+      <tbody *ngFor="let gameResult of gameResults$ | async">
+      <tr>
+        <td>
+          <img ngSrc="{{gameResult.homeTeamLogoUrl}}" width="25" height="25" alt="x"/>
+        </td>
+        <td>
+          {{gameResult.homeTeamName}}
+        </td>
+        <td>
+          {{gameResult.homeTeamGoals}}
+        </td>
+        <td>
+          -
+        </td>
+        <td>
+          {{gameResult.awayTeamGoals}}
+        </td>
+        <td>
+          {{gameResult.awayTeamName}}
+        </td>
+        <td>
+          <img ngSrc="{{gameResult.awayTeamLogoUrl}}" width="25" height="25" alt="x"/>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <button class="btn" [routerLink]="['/team-standings', country]">Back</button>
+  </div>
+</div>

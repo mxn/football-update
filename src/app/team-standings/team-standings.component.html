@@ -1,17 +1,18 @@
-<table>
-  <thead>
-  <tr>
-    <th>&nbsp;</th>
-    <th>Name</th>
-    <th>Games</th>
-    <th>W</th>
-    <th>L</th>
-    <th>D</th>
-    <th>Goal Difference</th>
-    <th>Points</th>
-  </tr>
-  </thead>
-  <tbody *ngFor="let team of getTeamStanding() | async">
+<div>
+  <table class="highlight">
+    <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>Name</th>
+      <th>Games</th>
+      <th>W</th>
+      <th>L</th>
+      <th>D</th>
+      <th>Goal Difference</th>
+      <th>Points</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let team of getTeamStanding() | async">
     <tr>
       <th><img src="{{team.logoUrl}}" width="25" height="25" alt="x"></th>
       <td><a [routerLink]="['/team-game-results', team.id]">{{team.name}}</a></td>
@@ -22,5 +23,6 @@
       <td>{{team.goalDifference}}</td>
       <td>{{team.points}}</td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
