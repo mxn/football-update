@@ -1,7 +1,8 @@
 <nav class="teal">
     <ul id="nav-mobile" class="hide-on-med-and-down teal" *ngFor="let country of countries">
       <li>
-         <button class="btn" id="{{country | lowercase}}Select" (click)="sendCountryEvent($event)">{{country}}</button>
+        <button class="btn" id="{{country | lowercase}}Select"
+                [routerLink]="['/team-standing', country.toLowerCase()]">{{country}}</button>
       </li>
     </ul>
 </nav>

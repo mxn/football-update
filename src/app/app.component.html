@@ -1,7 +1,5 @@
 <h1>Football Application</h1>
 <div>
-<app-country-navigation (countrySelect)="onCountrySelect($event)">
-
-</app-country-navigation>
-  <app-team-standings *ngIf="country" [country]="country"></app-team-standings>
+  <app-country-navigation></app-country-navigation>
+  <router-outlet></router-outlet>
 </div>

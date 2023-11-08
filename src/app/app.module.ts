@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CountryNavigationComponent } from './country-navigation/country-navigation.component';
 import { TeamStandingsComponent } from './team-standings/team-standings.component';
+import { RouterOutlet } from "@angular/router";
+import { RoutingModule } from "./routing/routing.module";
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { TeamStandingsComponent } from './team-standings/team-standings.componen
     TeamStandingsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RoutingModule,
+    RouterOutlet
   ],
   providers: [],
   bootstrap: [AppComponent]
