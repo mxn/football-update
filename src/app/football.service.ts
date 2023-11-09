@@ -93,7 +93,7 @@ export class FootballService {
     return seasonResponse.response[0].seasons[0].year;
   }
 
-  getCoutries() {
+  getCountries() {
     return Object.keys(countryLeagueMapping).map(country => country.slice(0, 1).toUpperCase() + country.slice(1))
   }
 

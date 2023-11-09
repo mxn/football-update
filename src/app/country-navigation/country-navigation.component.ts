@@ -13,6 +13,6 @@ export class CountryNavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.countries = this.footballService.getCoutries();
+    this.countries = this.footballService.getCountries();
   }
 }
