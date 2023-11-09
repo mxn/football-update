@@ -8,6 +8,7 @@ import { RouterOutlet } from "@angular/router";
 import { RoutingModule } from "./routing/routing.module";
 import { TeamGameResultsComponent } from './team-game-results/team-game-results.component';
 import { NgOptimizedImage } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { NgOptimizedImage } from "@angular/common";
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RoutingModule,
     RouterOutlet,
     NgOptimizedImage

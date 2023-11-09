@@ -12,7 +12,7 @@
       <th>Points</th>
     </tr>
     </thead>
-    <tbody *ngFor="let team of getTeamStanding() | async">
+    <tbody *ngFor="let team of teamStandings">
     <tr>
       <th><img src="{{team.logoUrl}}" width="25" height="25" alt="x"></th>
       <td><a [routerLink]="['/team-game-results', team.id]">{{team.name}}</a></td>

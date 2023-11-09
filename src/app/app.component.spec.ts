@@ -1,9 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { CountryNavigationComponent } from "./country-navigation/country-navigation.component";
+import { HttpClientModule } from "@angular/common/http";
+import { RoutingModule } from "./routing/routing.module";
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent]
+    imports: [HttpClientModule, RoutingModule],
+    declarations: [AppComponent, CountryNavigationComponent]
   }));
 
   it('should create the app', () => {
@@ -22,6 +26,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('FootballCert app is running!');
+    expect(compiled.querySelector('h1')?.textContent).toContain('FOOTBALL UPDATES');
   });
 });

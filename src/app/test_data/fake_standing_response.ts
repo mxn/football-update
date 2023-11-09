@@ -1,4 +1,4 @@
-import { TeamStanding } from "./team-standing";
+import { TeamStanding } from "../team-standing";
 
 export const fake_standing_response = {
   "get": "standings",

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FootballService } from "../football.service";
-import { Observable } from "rxjs";
 import { TeamStanding } from "../team-standing";
 import { ActivatedRoute } from "@angular/router";
 
@@ -12,16 +11,16 @@ import { ActivatedRoute } from "@angular/router";
 export class TeamStandingsComponent implements OnInit {
   @Input()
   country: string = '';
+  teamStandings: TeamStanding[] = []
 
   constructor(private footballService: FootballService, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.activatedRoute.paramMap
-      .subscribe(paramMap => this.country = paramMap.get('country')!);
-  }
-
-  getTeamStanding(): Observable<TeamStanding[]> {
-    return this.footballService.getTeamStandings(this.country);
+    console.log(`TeamStandings ngOnInit, country: ${this.country}`)
+    this.country = this.activatedRoute.snapshot.paramMap.get('country')!;
+    console.log(`TeamStandings ngOnInit after snapshot, country: ${this.country}`)
+    this.footballService.getTeamStandings$(this.country).subscribe(
+      teamStandings => this.teamStandings = teamStandings);
   }
 }

@@ -8,9 +8,4 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'FootballCert';
   country:  string = '';
-
-  onCountrySelect(event: string) {
-    this.country = event
-    console.log('onCountrySelect '  + this.country);
-  }
 }

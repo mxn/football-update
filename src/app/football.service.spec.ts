@@ -1,13 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 
 import { FootballService } from './football.service';
-import { fake_team_response } from "./fake_team_fixture_response";
+import { fake_team_response } from "./test_data/fake_team_fixture_response";
+import { fake_standing_response } from "./test_data/fake_standing_response";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('FootballService', () => {
   let service: FootballService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+    });
     service = TestBed.inject(FootballService);
   });
 
@@ -41,78 +45,4 @@ describe('FootballService', () => {
   });
 });
 
-const fake_standing_response = {
-  "get": "standings",
-  "parameters": {
-    "league": "39",
-    "season": "2019"
-  },
-  "errors": [],
-  "results": 1,
-  "paging": {
-    "current": 1,
-    "total": 1
-  },
-  "response": [
-    {
-      "league": {
-        "id": 39,
-        "name": "Premier League",
-        "country": "England",
-        "logo": "https://media.api-sports.io/football/leagues/2.png",
-        "flag": "https://media.api-sports.io/flags/gb.svg",
-        "season": 2019,
-        "standings": [
-          [
-            {
-              "rank": 1,
-              "team": {
-                "id": 40,
-                "name": "Liverpool",
-                "logo": "https://media.api-sports.io/football/teams/40.png"
-              },
-              "points": 70,
-              "goalsDiff": 41,
-              "group": "Premier League",
-              "form": "WWWWW",
-              "status": "same",
-              "description": "Promotion - Champions League (Group Stage)",
-              "all": {
-                "played": 24,
-                "win": 23,
-                "draw": 1,
-                "lose": 0,
-                "goals": {
-                  "for": 56,
-                  "against": 15
-                }
-              },
-              "home": {
-                "played": 12,
-                "win": 12,
-                "draw": 0,
-                "lose": 0,
-                "goals": {
-                  "for": 31,
-                  "against": 9
-                }
-              },
-              "away": {
-                "played": 12,
-                "win": 11,
-                "draw": 1,
-                "lose": 0,
-                "goals": {
-                  "for": 25,
-                  "against": 6
-                }
-              },
-              "update": "2020-01-29T00:00:00+00:00"
-            }
-          ]
-        ]
-      }
-    }
-  ]
-}
 
