@@ -4,6 +4,7 @@ import { TeamStanding } from "./team-standing";
 import { GameResult } from "./game-result";
 import { fake_team_response } from "./test_data/fake_team_fixture_response";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { fake_standing_response, fake_team_standing_1 } from "./test_data/fake_standing_response";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class FootballService {
   }
 
   getTeamStandings$(country: string): Observable<TeamStanding[]> {
+    if (country == 'england') {
+      return of(this.toTeamStandings(fake_standing_response));
+    }
+    return of(fake_team_standing_1);
     let leagueId = this.getLeagueId(country);
     if (this.teamStandingsCache[leagueId]) {
       console.log(`cache hit for league ${leagueId}`);

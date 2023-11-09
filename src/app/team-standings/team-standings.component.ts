@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FootballService } from "../football.service";
 import { TeamStanding } from "../team-standing";
 import { ActivatedRoute } from "@angular/router";
+import { filter, map, mergeMap, tap } from "rxjs";
 
 @Component({
   selector: 'app-team-standings',
@@ -9,18 +10,19 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./team-standings.component.css']
 })
 export class TeamStandingsComponent implements OnInit {
-  @Input()
-  country: string = '';
   teamStandings: TeamStanding[] = []
 
   constructor(private footballService: FootballService, private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
-    console.log(`TeamStandings ngOnInit, country: ${this.country}`)
-    this.country = this.activatedRoute.snapshot.paramMap.get('country')!;
-    console.log(`TeamStandings ngOnInit after snapshot, country: ${this.country}`)
-    this.footballService.getTeamStandings$(this.country).subscribe(
-      teamStandings => this.teamStandings = teamStandings);
+    this.activatedRoute.paramMap
+      .pipe(
+        map(paramMap => paramMap.get('country')),
+        tap(country => console.log('route to country: ' + country)),
+        filter(country => country != ''),
+        mergeMap(country => this.footballService.getTeamStandings$(country!))
+      )
+      .subscribe(teamStandings => this.teamStandings = teamStandings);
   }
 }

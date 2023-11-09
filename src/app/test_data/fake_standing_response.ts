@@ -75,11 +75,11 @@ export const fake_standing_response = {
   ]
 }
 
-export const fake_standings_response_1: TeamStanding[] = [
+export const fake_team_standing_1: TeamStanding[] = [
   {
     id: 28,
     name: 'FR',
-    logoUrl: 'BR',
+    logoUrl: 'favicon.ico',
     games: 20,
     wins: 10,
     draws: 1,
@@ -90,7 +90,7 @@ export const fake_standings_response_1: TeamStanding[] = [
   {
     id: 27,
     name: 'EN',
-    logoUrl: 'GB',
+    logoUrl: 'favicon.ico',
     games: 15,
     wins: 10,
     draws: 1,
