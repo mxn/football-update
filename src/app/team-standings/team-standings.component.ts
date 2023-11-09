@@ -10,7 +10,8 @@ import { filter, map, mergeMap, tap } from "rxjs";
   styleUrls: ['./team-standings.component.css']
 })
 export class TeamStandingsComponent implements OnInit {
-  teamStandings: TeamStanding[] = []
+  teamStandings: TeamStanding[] = [];
+  country: string = '';
 
   constructor(private footballService: FootballService, private activatedRoute: ActivatedRoute) {
   }
@@ -20,6 +21,7 @@ export class TeamStandingsComponent implements OnInit {
       .pipe(
         map(paramMap => paramMap.get('country')),
         tap(country => console.log('route to country: ' + country)),
+        tap(country => this.country = country!),
         filter(country => country != ''),
         mergeMap(country => this.footballService.getTeamStandings$(country!))
       )

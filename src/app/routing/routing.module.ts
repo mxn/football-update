@@ -11,7 +11,7 @@ const routes: Routes = [
     component: TeamStandingsComponent
   },
   {
-    path: 'team-game-results/:teamId',
+    path: 'team-game-results/:country/:teamId',
     component: TeamGameResultsComponent
   }
 ];

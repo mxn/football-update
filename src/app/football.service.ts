@@ -24,7 +24,7 @@ export class FootballService {
   }
 
   getTeamStandings$(country: string): Observable<TeamStanding[]> {
-    if (country == 'england') {
+    if (country == 'england') { //TODO
       return of(this.toTeamStandings(fake_standing_response));
     }
     return of(fake_team_standing_1);
@@ -71,7 +71,7 @@ export class FootballService {
     return countryLeagueMapping[country];
   }
 
-  getTeamGameResults(teamId: number): Observable<GameResult[]> {
+  getTeamGameResults$(teamId: number): Observable<GameResult[]> {
     return of(this.toGameResults(fake_team_response));
   }
 
