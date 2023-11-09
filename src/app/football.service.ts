@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { map, mergeMap, Observable, of, tap } from "rxjs";
 import { TeamStanding } from "./team-standing";
 import { GameResult } from "./game-result";
-import { fake_team_response } from "./test_data/fake_team_fixture_response";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { fake_standing_response, fake_team_standing_1 } from "./test_data/fake_standing_response";
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +22,10 @@ export class FootballService {
   }
 
   getTeamStandings$(country: string): Observable<TeamStanding[]> {
-    if (country == 'england') { //TODO
-      return of(this.toTeamStandings(fake_standing_response));
-    }
-    return of(fake_team_standing_1);
     let leagueId = this.getLeagueId(country);
+    if (!leagueId) {
+      throw new Error(`leagueId is undefined for country ${country}`);
+    }
     if (this.teamStandingsCache[leagueId]) {
       console.log(`cache hit for league ${leagueId}`);
       return of(this.teamStandingsCache[leagueId])
@@ -68,11 +65,28 @@ export class FootballService {
   }
 
   getLeagueId(country: string): number {
-    return countryLeagueMapping[country];
+    return countryLeagueMapping[country.toLowerCase()];
   }
 
-  getTeamGameResults$(teamId: number): Observable<GameResult[]> {
-    return of(this.toGameResults(fake_team_response));
+  getTeamGameResults$(country: string, teamId: number): Observable<GameResult[]> {
+    if (this.teamGameResultsCache[teamId]) {
+      return of(this.teamGameResultsCache[teamId]);
+    }
+    let leagueId = this.getLeagueId(country);
+    return this.getActiveSeason$(leagueId)
+      .pipe(mergeMap(season => this.getTeamResultLeagueSeasonTeam$(leagueId, season, teamId)),
+        tap(gameResults => this.teamGameResultsCache[teamId] = gameResults));
+  }
+
+  getTeamResultLeagueSeasonTeam$(league: number, season: number, teamId: number): Observable<GameResult[]> {
+    return this.httpClient.get<any>(`${this.apiEndPoint}fixtures`,
+      {
+        headers: this.httpHeaders,
+        params: new HttpParams().set('league', league).set('season', season).set('team', teamId).set('last', 10)
+      }).pipe(
+      tap(response => console.log(response)),
+      map(response => this.toGameResults(response))
+    )
   }
 
   getActiveSeason$(leagueId: number): Observable<number> {

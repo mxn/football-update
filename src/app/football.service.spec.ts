@@ -43,6 +43,11 @@ describe('FootballService', () => {
     expect(game1.homeTeamGoals).toEqual(3);
     expect(game1.awayTeamGoals).toEqual(0);
   });
+
+  it('should get leagueId for country', () => {
+    let leagueId = service.getLeagueId('Spain')
+    expect(leagueId).toEqual(140);
+  });
 });
 
 

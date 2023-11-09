@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { GameResult } from "../game-result";
 import { FootballService } from "../football.service";
-import { map, mergeMap, tap } from "rxjs";
+import { mergeMap, tap } from "rxjs";
 
 @Component({
   selector: 'app-team-game-results',
@@ -20,8 +20,8 @@ export class TeamGameResultsComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.pipe(
       tap(paramMap => this.country = paramMap.get('country')!),
-      map(paramMap => Number(paramMap.get('teamId'))),
-      mergeMap(teamId => this.footballService.getTeamGameResults$(teamId))
+      mergeMap(paramMap => this.footballService.getTeamGameResults$(
+        paramMap.get('country')!, Number(paramMap.get('teamId'))))
     ).subscribe(gameResults => this.gameResults = gameResults);
   }
 
