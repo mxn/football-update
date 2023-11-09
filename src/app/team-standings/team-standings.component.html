@@ -14,7 +14,7 @@
     </thead>
     <tbody *ngFor="let team of teamStandings">
     <tr>
-      <th><img src="{{team.logoUrl}}" width="25" height="25" alt="x"></th>
+      <th><img alt="x" height="25" ngSrc="{{team.logoUrl}}" width="25"></th>
       <td><a [routerLink]="['/team-game-results', country, team.id]">{{team.name}}</a></td>
       <td>{{team.games}}</td>
       <td>{{team.wins}}</td>
