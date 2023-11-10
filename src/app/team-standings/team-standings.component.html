@@ -1,5 +1,5 @@
 <div>
-  <table class="highlight">
+  <table *ngIf="teamStandings else loading" class="highlight">
     <thead>
     <tr>
       <th>&nbsp;</th>
@@ -25,4 +25,7 @@
     </tr>
     </tbody>
   </table>
+  <ng-template #loading>
+    <span>Loading...</span>
+  </ng-template>
 </div>

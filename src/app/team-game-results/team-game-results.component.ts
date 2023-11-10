@@ -12,13 +12,14 @@ import { mergeMap, tap } from "rxjs";
 export class TeamGameResultsComponent implements OnInit {
   @Input()
   country: string = '';
-  gameResults: GameResult[] = [];
+  gameResults: GameResult[] | null = null;
 
   constructor(private footballService: FootballService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
+      tap(_ => this.gameResults = null),
       tap(paramMap => this.country = paramMap.get('country')!),
       mergeMap(paramMap => this.footballService.getTeamGameResults$(
         paramMap.get('country')!, Number(paramMap.get('teamId'))))
