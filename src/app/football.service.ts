@@ -3,6 +3,8 @@ import { map, mergeMap, Observable, of, tap } from "rxjs";
 import { TeamStanding } from "./team-standing";
 import { GameResult } from "./game-result";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { StandingResponse, TeamStandingsResponse } from "./team-standings-response";
+import { Fixture, FixturesResponse } from "./fixtures-response";
 
 @Injectable({
   providedIn: 'root'
@@ -37,29 +39,29 @@ export class FootballService {
       );
   }
 
-  toTeamStandings(response: any): TeamStanding[] {
-    return response.response[0].league.standings[0].map((teamEl: any) => ({
-      id: teamEl.team.id,
-      name: teamEl.team.name,
-      logoUrl: teamEl.team.logo,
-      games: teamEl.all.played,
-      wins: teamEl.all.win,
-      losses: teamEl.all.lose,
-      draws: teamEl.all.draw,
-      goalDifference: teamEl.goalsDiff,
-      points: teamEl.points,
+  toTeamStandings(response: TeamStandingsResponse): TeamStanding[] {
+    return response.response[0].league.standings[0].map((standingResponse: StandingResponse) => ({
+      id: standingResponse.team.id,
+      name: standingResponse.team.name,
+      logoUrl: standingResponse.team.logo,
+      games: standingResponse.all.played,
+      wins: standingResponse.all.win,
+      losses: standingResponse.all.lose,
+      draws: standingResponse.all.draw,
+      goalDifference: standingResponse.goalsDiff,
+      points: standingResponse.points,
     }));
   }
 
-  toGameResults(response: any): GameResult[] {
-    return response.response.map((fixtureEl: any) => (
+  toGameResults(response: FixturesResponse): GameResult[] {
+    return response.response.map((fixture: Fixture) => (
       {
-        homeTeamName: fixtureEl.teams.home.name,
-        homeTeamLogoUrl: fixtureEl.teams.home.logo,
-        homeTeamGoals: fixtureEl.goals.home,
-        awayTeamName: fixtureEl.teams.away.name,
-        awayTeamLogoUrl: fixtureEl.teams.away.logo,
-        awayTeamGoals: fixtureEl.goals.away
+        homeTeamName: fixture.teams.home.name,
+        homeTeamLogoUrl: fixture.teams.home.logo,
+        homeTeamGoals: fixture.goals.home,
+        awayTeamName: fixture.teams.away.name,
+        awayTeamLogoUrl: fixture.teams.away.logo,
+        awayTeamGoals: fixture.goals.away
       }
     ))
   }
@@ -79,7 +81,7 @@ export class FootballService {
   }
 
   getTeamResultLeagueSeasonTeam$(league: number, season: number, teamId: number): Observable<GameResult[]> {
-    return this.httpClient.get<any>(`${this.apiEndPoint}fixtures`,
+    return this.httpClient.get<FixturesResponse>(`${this.apiEndPoint}fixtures`,
       {
         headers: this.httpHeaders,
         params: new HttpParams().set('league', league).set('season', season).set('team', teamId).set('last', 10)
@@ -93,17 +95,17 @@ export class FootballService {
     if (this.activeSeasonCache[leagueId]) {
       return of(this.activeSeasonCache[leagueId]);
     }
-    return this.httpClient.get<any>(`${this.apiEndPoint}leagues`,
+    return this.httpClient.get<SeasonResponse>(`${this.apiEndPoint}leagues`,
       {
         headers: this.httpHeaders,
         params: new HttpParams().set('id', leagueId).set('current', true)
       }).pipe(tap(response => console.log(response)),
       map(response => this.getActiveSeasonFromResponse(response)),
-      tap(season => this.activeSeasonCache[leagueId])
+      tap(season => this.activeSeasonCache[leagueId] = season)
     );
   }
 
-  getActiveSeasonFromResponse(seasonResponse: any): number {
+  getActiveSeasonFromResponse(seasonResponse: SeasonResponse): number {
     return seasonResponse.response[0].seasons[0].year;
   }
 
@@ -112,7 +114,7 @@ export class FootballService {
   }
 
   private getTeamStandingForLeagueSeason$(leagueId: number, season: number) {
-    return this.httpClient.get<any>(`${this.apiEndPoint}standings`,
+    return this.httpClient.get<TeamStandingsResponse>(`${this.apiEndPoint}standings`,
       {
         headers: this.httpHeaders,
         params: new HttpParams().set('league', leagueId).set('season', season)
@@ -122,7 +124,17 @@ export class FootballService {
   }
 }
 
-const countryLeagueMapping: { [index: string]: any } =
+interface SeasonResponse {
+  response:
+    {
+      seasons: {
+        year: number
+      }[]
+    }[]
+}
+
+
+const countryLeagueMapping: { [index: string]: number } =
   {
     'england': 39,
     'spain': 140,

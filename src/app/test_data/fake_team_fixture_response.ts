@@ -1,12 +1,13 @@
-export const fake_team_response = {
+import { FixturesResponse } from "../fixtures-response";
+
+export const fake_team_response: FixturesResponse = {
   get: "fixtures",
   parameters: {
     league: "39",
     team: "40",
     last: "10",
   },
-  errors: [
-  ],
+  errors: [],
   results: 10,
   paging: {
     current: 1,

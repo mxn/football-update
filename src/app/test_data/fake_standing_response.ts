@@ -1,6 +1,7 @@
 import { TeamStanding } from "../team-standing";
+import { TeamStandingsResponse } from "../team-standings-response";
 
-export const fake_standing_response = {
+export const fake_standing_response: TeamStandingsResponse = {
   "get": "standings",
   "parameters": {
     "league": "39",
