@@ -5,14 +5,14 @@ import { GameResult } from "./game-result";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { StandingResponse, TeamStandingsResponse } from "./team-standings-response";
 import { Fixture, FixturesResponse } from "./fixtures-response";
+import { apiKey } from "../.secrets";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FootballService {
-  private apiKey: string = '8f6f7b3d8164aa2f52afdf308e691f95';
   private httpHeaders: HttpHeaders = new HttpHeaders(
-    {'x-rapidapi-key': this.apiKey}
+    {'x-rapidapi-key': apiKey}
   )
   private apiEndPoint: string = 'https://v3.football.api-sports.io/';
   private activeSeasonCache: { [index: number]: number } = {};
